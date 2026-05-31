@@ -21,29 +21,35 @@ workflows:
     scripts:
       - name: Install Flutter dependencies
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter pub get
           flutter clean
 
       - name: Analyze code
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter analyze --no-pub
 
       - name: Run tests
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter test --no-pub --coverage
 
       - name: Build iOS
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter build ios --no-pub --release \
             --build-number=$BUILD_NUMBER
 
       - name: Build Android
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter build apk --no-pub --release \
             --build-number=$BUILD_NUMBER
 
       - name: Build Web
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter build web --no-pub --release
 
     artifacts:
@@ -73,10 +79,13 @@ workflows:
 
     scripts:
       - name: Get Flutter dependencies
-        script: flutter pub get
+        script: |
+          cd $CODEMAGIC_BUILD_DIR
+          flutter pub get
 
       - name: Build iOS Release
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter build ios --release \
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER
@@ -104,10 +113,13 @@ workflows:
 
     scripts:
       - name: Get Flutter dependencies
-        script: flutter pub get
+        script: |
+          cd $CODEMAGIC_BUILD_DIR
+          flutter pub get
 
       - name: Build Android Release
         script: |
+          cd $CODEMAGIC_BUILD_DIR
           flutter build apk --release \
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER
@@ -135,10 +147,14 @@ workflows:
 
     scripts:
       - name: Get Flutter dependencies
-        script: flutter pub get
+        script: |
+          cd $CODEMAGIC_BUILD_DIR
+          flutter pub get
 
       - name: Build Web Release
-        script: flutter build web --release
+        script: |
+          cd $CODEMAGIC_BUILD_DIR
+          flutter build web --release
 
     artifacts:
       - build/web
